@@ -1,0 +1,184 @@
+:root {
+  --scaling_factor: 0.5;
+}
+
+
+.wrap
+{
+    height: 180px;
+    width:  320px;
+    padding: 0;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.frame
+{
+    width: 640px;
+    height: 360px;
+        -ms-transform: scale(var(--scaling_factor));
+    -moz-transform: scale(var(--scaling_factor));
+    -o-transform: scale(var(--scaling_factor));
+    -webkit-transform: scale(var(--scaling_factor));
+    transform: scale(var(--scaling_factor));
+
+    border: 0;
+
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+.cardview_body {
+    margin: auto;
+    width: 560px;
+    height: 280px;
+    border: 3px solid black;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    word-wrap: break-word;
+}
+.box{
+    background-color: black;
+    color: white;
+    width: 560px;
+    height: 280px;
+    margin: auto;
+    word-wrap: break-word;
+
+}
+
+.card{
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.cardtext{
+  color:white;
+}
+
+.img{
+  color: white;
+}
+
+.bluebg{
+  background-color: blue;
+}
+
+.blackbg{
+  background-color: black;
+}
+
+.center{
+  text-align: center;
+  margin: auto;
+
+}
+
+.errorlist li{
+  color:red;
+  font-weight: bold;
+}
+
+#nav_list_first_row{
+    font-size: 13px;
+    color: gray;
+}
+
+
+
+::marker {
+  color: blue;
+  display: inline-block;
+}
+
+ol {
+	counter-reset: my-badass-counter;
+}
+ol li .name::before {
+	content: counter(my-badass-counter);
+	counter-increment: my-badass-counter;
+  color: white;
+  background:gray;
+  padding-top: 5px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align:middle;
+}
+
+.flex-row .name{
+
+}
+
+
+.tasklistmobile{
+    margin: auto;
+    padding: 0px;
+    border-radius: 10px;
+    border: 3px solid black;
+}
+
+.tasklistmobile table{
+    position: absolute;
+    text-align: center;
+    margin-left:-205px;
+    left: 50%;
+    top: 70px;
+    border-collapse: separate;
+    border-spacing: 5px 10px;
+}
+
+.tasklistmobile tr{
+  height: 60px;
+}
+
+.tasklistmobile td{
+  vertical-align: middle;
+  border-radius: 10px;
+  width: 400px;
+
+}
+
+
+
+h1{
+    font-size: 40px;
+}
+
+
+progress {
+    position: absolute;
+    bottom: 0%;
+    margin: 1%;
+    width: 98%;
+    height: 0.75%;
+	display: block;
+	/* Important Thing */
+	-webkit-appearance: none;
+	border: none;
+}
+
+/* All good till now. Now we'll style the background */
+progress::-webkit-progress-bar {
+	background: black;
+}
+
+/* Now the value part */
+progress::-webkit-progress-value {
+	border-radius: 100px;
+	background: -webkit-linear-gradient(left, #A9BCF5 0%,#013ADF 100%);
+}
+
+/*
+=============================
+MODAL
+=============================
+ */
