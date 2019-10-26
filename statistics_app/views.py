@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Avg
+from JunctionX.settings import STATIC_DIR
 
 import numpy as np
 
@@ -120,11 +121,13 @@ def create_radar(session_id):
     axes.set_varlabels(spoke_labels)
 
     # add legend relative to top-left plot
-    plt.savefig('radar_test.png', dpi=300)
-    return 'radar_test.png'  # path
-
-# Usage:
-# create_radar([0.88, 0.5, 1.00, 0.5, 1.00, 0.5, 1.00, 0.400])
+    img_path = STATIC_DIR + '/statistics_app/pictures/radar_test_' + str(session_id) + '.png'
+    print(img_path)
+    plt.savefig(img_path, dpi=300)
+    session = Session.objects.get(pk=session_id)
+    session.image_url = img_path
+    session.save()
+    return img_path
 
 
 class ChildResult(LoginRequiredMixin, TemplateView):

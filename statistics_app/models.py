@@ -10,7 +10,7 @@ class Session(models.Model):
     completed = models.BooleanField(db_column='completed', default=False)
     date = models.DateTimeField(db_column='date', auto_now=True)
     content_id = models.IntegerField()
-    image = models.ImageField(db_column='image', upload_to='statistics_app/pictures', blank=True)
+    image_path = models.CharField(db_column='image_path', blank=True,max_length=255)
 
     def __str__(self):
         return 'ID: {} Child name: {} Tale: {}'.format(self.id, self.child.name, self.tale.name)
