@@ -67,4 +67,12 @@
     </div>
   </div>
 </div>
+
+{% for item in items %}
+    <p> {{item.0.name}}</p>
+    {% for session in items.1 %}
+        <p> {{session.date}} </p>
+        <p> {{session.image.url}} </p>
+    {% endfor%}
+{% endfor%}
 {% endblock %}

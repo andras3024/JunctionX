@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from .models import Result, Session
+from tale_app.models import Tale
 from children_app.models import Child
 from django.views.generic.base import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.db.models import Avg
 
 import numpy as np
 
@@ -96,7 +98,17 @@ def radar_factory(num_vars, frame='circle'):
     return theta
 
 
-def create_radar(session_id, data):
+def create_radar(session_id):
+    data = [1, 1, 1, 1, 1, 1, 1, 1]
+    results = Result.objects.filter(session__id=session_id)
+    for emotion in [0, 1, 2, 3, 4, 5, 6, 7]:
+        col_name = 'emotion_' + str(emotion)
+        emotion_set = results.filter(content__targetemotion=emotion)
+
+        if emotion_set:
+            avg = emotion_set.aggregate(Avg(col_name))
+            data[emotion] = next(iter(avg.values()))
+
     N = 8
     theta = radar_factory(N, frame='polygon')
     spoke_labels = ['anger', 'contempt', 'disgust', 'fear', 'happiness', 'neutral', 'sadness', 'surprise']
@@ -120,14 +132,14 @@ class ChildResult(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        tale_ids = Session.objects.all().values_list('tale', flat=True).distinct()
+        tales = []
+        tale_ids = Session.objects.filter(child=Child.objects.get(pk=kwargs['child_id'])).values_list('tale', flat=True).distinct()
         for tale_id in tale_ids:
             sessions = Session.objects.filter(
                 child=Child.objects.get(pk=kwargs['child_id']),
                 tale__id=tale_id,
             ).order_by('date')
-            for session in sessions:
-                pass
+            tales.append([Tale.objects.get(pk=tale_id), sessions])
         # A result adatokbol kell csinalni egy listat, aztan azt meg  a contenthez hozzá kell fűzni.
-        context['items'] = 'valami'
+        context['items'] = tales
         return context
