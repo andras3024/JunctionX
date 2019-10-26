@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('basic_app.urls')),
     path('', include('userhandler_app.urls')),
     path('', include('children_app.urls')),
+    path('', include('qrcode_app.urls')),
     #path('', include('statistics_app.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

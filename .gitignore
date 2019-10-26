@@ -9,3 +9,5 @@ statistics_app/__pycache__
 statistics_app/migrations/__pycache__
 children_app/__pycache__
 children_app/migrations/__pycache__
+qrcode_app/__pycache__
+qrcode_app/migrations/__pycache__

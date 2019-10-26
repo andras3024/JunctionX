@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'userhandler_app',
     'statistics_app',
     'children_app',
+    'qrcode_app',
+    'qr_code',
 ]
 
 MIDDLEWARE = [
