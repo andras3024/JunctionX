@@ -7,6 +7,9 @@ document.onkeydown = function(event) {
     if (event.key === 'ArrowRight'){
         window.location.pathname = next_content_url;
     }
+    else if (event.key === 'Enter'){
+
+    }
 }
 
 vid.onended = function() {

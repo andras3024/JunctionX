@@ -155,6 +155,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
     PICTURES_DIR,
+    os.path.join(STATIC_DIR, 'tale_app', 'pictures'),
+    os.path.join(STATIC_DIR, 'statistics_app', 'pictures'),
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = MEDIA_DIR

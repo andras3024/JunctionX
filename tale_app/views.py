@@ -81,5 +81,11 @@ class TaleContent(APIView):
                 'content_id': next_content.id
             })
         content = Content.objects.get(id=kwargs['content_id'])
+
+        if content.type == 0:
+            renderhtml = 'tale_app/tale.html'
+        else:
+            renderhtml = "tale_app/" + str(content.type) + ".html"
+
         context = {'item': content, 'next_content_url': next_content_url}
-        return render(request, 'tale_app/tale.html', context)
+        return render(request, renderhtml, context)
