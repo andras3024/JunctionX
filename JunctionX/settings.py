@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-MEDIA_DIR = os.path.join(BASE_DIR, 'media/')
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 PICTURES_DIR = os.path.join(STATIC_DIR, 'basic_app', 'pictures')
 
 
@@ -134,7 +134,7 @@ STATICFILES_DIRS = [
     STATIC_DIR,
     PICTURES_DIR,
 ]
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = MEDIA_DIR
 
 #LOGIN
