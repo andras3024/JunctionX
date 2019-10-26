@@ -6,16 +6,18 @@
 <body>
     <div class="center">
          <h1> {{ item.tasktext }}</h1>
-
+        <button data-id="{{item.id}}" type="button" class="btn btn-primary take_picture" >
+            Take a selfie!
+        </button>
     </div>
+
 
 
 </body>
 </html>
 {% csrf_token %}
-{{ next_content_url|json_script:"next_content_url" }}
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src = "{% static 'js/contentswitch.js' %}"></script>
+
+
 
 {% endblock %}
