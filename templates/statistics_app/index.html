@@ -1,8 +1,9 @@
 {% extends "basic_app/base.html" %}
 {% block body_block%}
 {% load static%}
-    <div class="row">
-  <div class="col-4">
+<h1 class="mt-1">Statistics</h1>
+    <div class="row mt-4">
+  <div class="col-3">
     <div class="list-group" id="list-tab" role="tablist">
       <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
       <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
@@ -12,10 +13,57 @@
   </div>
   <div class="col-8">
     <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>
-      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
-      <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+
+
+        <div class="row mt-4">
+          <div class="col-3">
+            <div class="list-group" id="list-tab_n" role="tablist">
+              <a class="list-group-item list-group-item-action active" id="list-home-list_n" data-toggle="list" href="#list-home_n" role="tab" aria-controls="home">Home</a>
+              <a class="list-group-item list-group-item-action" id="list-profile-list_n" data-toggle="list" href="#list-profile_n" role="tab" aria-controls="profile">Profile</a>
+              <a class="list-group-item list-group-item-action" id="list-messages-list_n" data-toggle="list" href="#list-messages_n" role="tab" aria-controls="messages">Messages</a>
+              <a class="list-group-item list-group-item-action" id="list-settings-list_n" data-toggle="list" href="#list-settings_n" role="tab" aria-controls="settings">Settings</a>
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="tab-content" id="nav-tab_nContent">
+              <div class="tab-pane fade show active" id="list-home_n" role="tabpanel" aria-labelledby="list-home-list">Hello</div>
+              <div class="tab-pane fade" id="list-profile_n" role="tabpanel" aria-labelledby="list-profile-list">Darkness</div>
+              <div class="tab-pane fade" id="list-messages_n" role="tabpanel" aria-labelledby="list-messages-list">My old</div>
+              <div class="tab-pane fade" id="list-settings_n" role="tabpanel" aria-labelledby="list-settings-list">Friend</div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+
+
+        <div class="row mt-4">
+          <div class="col-3">
+            <div class="list-group" id="list-tab_1" role="tablist">
+              <a class="list-group-item list-group-item-action active" id="list-home-list_1" data-toggle="list" href="#list-home_1" role="tab" aria-controls="home">Home</a>
+              <a class="list-group-item list-group-item-action" id="list-profile-list_1" data-toggle="list" href="#list-profile_1" role="tab" aria-controls="profile">Profile</a>
+              <a class="list-group-item list-group-item-action" id="list-messages-list_1" data-toggle="list" href="#list-messages_1" role="tab" aria-controls="messages">Messages</a>
+              <a class="list-group-item list-group-item-action" id="list-settings-list_1" data-toggle="list" href="#list-settings_1" role="tab" aria-controls="settings">Settings</a>
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="tab-content" id="nav-tab_1Content">
+              <div class="tab-pane fade show active" id="list-home_1" role="tabpanel" aria-labelledby="list-home-list">Hello 2 </div>
+              <div class="tab-pane fade" id="list-profile_1" role="tabpanel" aria-labelledby="list-profile-list">Darkness 3 </div>
+              <div class="tab-pane fade" id="list-messages_1" role="tabpanel" aria-labelledby="list-messages-list">My old 2</div>
+              <div class="tab-pane fade" id="list-settings_1" role="tabpanel" aria-labelledby="list-settings-list">Friend 2</div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">My old</div>
+      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">Friend</div>
     </div>
   </div>
 </div>
