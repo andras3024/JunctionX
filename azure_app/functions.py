@@ -1,5 +1,7 @@
 from statistics_app.models import Result
-from JunctionX.settings import BASE_DIR
+from JunctionX.settings import BASE_DIR, STATIC_DIR
+import time
+from xml.etree import ElementTree
 import requests
 import json
 import asyncio, io, glob, os, sys, time, uuid, requests
@@ -40,32 +42,56 @@ def emotion_detction(result_id):
     result.emotion_7 = emotion['surprise']
     result.save()
 
-    '''response = requests.get(image_url)
-    img = Image.open(BytesIO(image_data))
-    draw = ImageDraw.Draw(img)
-    for face in data:
-        draw.rectangle(getRectangle(face), outline='red', width=5)'''
+
+class TextToSpeech(object):
+    def __init__(self, subscription_key, text):
+        self.subscription_key = subscription_key
+        self.tts = text
+        self.timestr = time.strftime("%Y%m%d-%H%M")
+        self.access_token = None
+
+    def get_token(self):
+
+        fetch_token_url = "https://westeurope.api.cognitive.microsoft.com/sts/v1.0/issueToken"
+        headers = {
+            'Ocp-Apim-Subscription-Key': self.subscription_key
+        }
+        response = requests.post(fetch_token_url, headers=headers)
+        self.access_token = str(response.text)
+
+    def save_audio(self):
+        # https://westeurope.api.cognitive.microsoft.com/sts/v1.0/issuetoken
+        base_url = 'https://westeurope.tts.speech.microsoft.com/'
+        path = 'cognitiveservices/v1'
+        constructed_url = base_url + path
+        headers = {
+            'Authorization': 'Bearer ' + self.access_token,
+            'Content-Type': 'application/ssml+xml',
+            'X-Microsoft-OutputFormat': 'riff-24khz-16bit-mono-pcm',
+            'User-Agent': 'YOUR_RESOURCE_NAME'
+        }
+        xml_body = ElementTree.Element('speak', version='1.0')
+        xml_body.set('{http://www.w3.org/XML/1998/namespace}lang', 'en-us')
+        voice = ElementTree.SubElement(xml_body, 'voice')
+        voice.set('{http://www.w3.org/XML/1998/namespace}lang', 'en-US')
+        voice.set(
+            'name', 'Microsoft Server Speech Text to Speech Voice (en-US, Guy24KRUS)')
+        voice.text = self.tts
+        body = ElementTree.tostring(xml_body)
+
+        response = requests.post(constructed_url, headers=headers, data=body)
+        if response.status_code == 200:
+            with open(STATIC_DIR + '/azure_app/voices/sample-' + self.timestr + '.wav', 'wb') as audio:
+                audio.write(response.content)
+                print("\nStatus code: " + str(response.status_code) +
+                      "\nYour TTS is ready for playback.\n")
+        else:
+            print("\nStatus code: " + str(response.status_code) +
+                  "\nSomething went wrong. Check your subscription key and headers.\n")
 
 
 def text_to_speech(text):
-    speech_key = "8c908ab70ab54a8f8d11657875e5a1be"
-    service_region = "https://westeurope.api.cognitive.microsoft.com/sts/v1.0/issuetoken"
-    speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
-
-    # Creates a speech synthesizer using the default speaker as audio output.
-    speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
-    # Synthesizes the received text to speech.
-    # The synthesized speech is expected to be heard on the speaker with this line executed.
-    result = speech_synthesizer.speak_text_async(text).get()
-
-    # Checks result.
-    if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
-        print("Speech synthesized to speaker for text [{}]".format(text))
-    elif result.reason == speechsdk.ResultReason.Canceled:
-        cancellation_details = result.cancellation_details
-        print("Speech synthesis canceled: {}".format(cancellation_details.reason))
-        if cancellation_details.reason == speechsdk.CancellationReason.Error:
-            if cancellation_details.error_details:
-                print("Error details: {}".format(cancellation_details.error_details))
-        print("Did you update the subscription info?")
-
+    subscription_key = "8c908ab70ab54a8f8d11657875e5a1be"
+    app = TextToSpeech(subscription_key, text)
+    app.get_token()
+    app.save_audio()
