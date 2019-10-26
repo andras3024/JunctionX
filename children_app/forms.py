@@ -9,10 +9,10 @@ class AddChild(forms.ModelForm):
         fields = ('name', 'image')
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Name', 'class': 'form-control'}),
-            'image': forms.ImageField(),
+
         }
         labels = {
-                'name': "Name of Card:",
+                'name': "Name of the family member:",
         }
 
     def clean(self):

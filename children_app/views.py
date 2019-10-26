@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+from django.http import HttpResponseRedirect
 
 class ChildList(LoginRequiredMixin, TemplateView):
     template_name = "children_app/list.html"
@@ -25,6 +25,23 @@ class AddChild(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
+        context['form'] = forms.AddChild()
         return context
+
+    def post(self, request, *args, **kwargs):
+
+        form = forms.AddChild(request.POST, request.FILES)
+        if form.is_valid():  # HA rendben van a form tartalma
+            print("VALID FORM IN.")
+
+            r1 = Child(
+                    name=form.cleaned_data['name'],
+                    image=form.cleaned_data['image'],
+                    user=User.objects.get(pk=self.request.user.id),
+                )
+            r1.save()  # az osztály példányának mentésével írom az adatbázisba az adatokat
+            return HttpResponseRedirect(reverse('children_app:child'))
+        else:
+            return render(request, 'children_app/add.html', {'form': form})
+
 
