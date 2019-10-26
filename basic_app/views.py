@@ -7,3 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # ============================================================================================
 def index(request):
     return render(request, 'basic_app/index.html')
+
+
+def login(request):
+    return render(request, 'userhandler_app/login.html')
