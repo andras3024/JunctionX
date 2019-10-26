@@ -6,6 +6,6 @@ app_name = 'children_app'
 
 urlpatterns = [
     # HOMEPAGE
-    path('child', views.ChildList.as_view(), name="child"),
+    path('', views.ChildList.as_view(), name="child"),
     path('child/add', views.AddChild.as_view(), name="add_child"),
 ]

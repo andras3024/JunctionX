@@ -27,8 +27,11 @@
   <nav class="navbar navbar-expand navbar-light bg-light">
     <div class="container">
       <div class="navbar-nav float-none">
-        <a class="navbar-brand float-none" href="{% url 'basic_app:index' %}">
+        <a class="navbar-brand float-none" href="{% url 'children_app:child' %}">
+
+          <img src="{% static "basic_app/pictures/microsoft.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
           <img src="{% static "basic_app/pictures/logomini.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
+
           Home
         </a>
 
@@ -48,9 +51,9 @@
           <li class="nav-item">
               <a class="btn btn-dark" href="{% url 'userhandler_app:register' %}" role="button">Register</a>
           </li>
-          <li class="nav-item">
-              <a class="btn btn-dark ml-1" href="{% url 'userhandler_app:user_login' %}?next={{request.path}}" role="button">Login</a>
-          </li>
+<!--          <li class="nav-item">-->
+<!--              <a class="btn btn-dark ml-1" href="{% url 'userhandler_app:user_login' %}?next={{request.path}}" role="button">Login</a>-->
+<!--          </li>-->
           {% endif %}
         </ul>
       </div>
