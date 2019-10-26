@@ -16,7 +16,7 @@ import datetime
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_DIR = os.path.join(BASE_DIR, 'static2')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 PICTURES_DIR = os.path.join(STATIC_DIR, 'basic_app', 'pictures')
 
@@ -28,7 +28,7 @@ PICTURES_DIR = os.path.join(STATIC_DIR, 'basic_app', 'pictures')
 SECRET_KEY = ')3bvd96(%!dq7z0yu_l333-2r$t=t*73^!=ov498@4ol*erj!6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -152,8 +152,8 @@ JWT_AUTH = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static2/'
-STATIC_ROOT = '/home/site/wwwroot/static2/'
+STATIC_URL = '/static/'
+# STATIC_ROOT = '/home/site/wwwroot/static2/'
 STATICFILES_DIRS = [
     STATIC_DIR,
     PICTURES_DIR,
