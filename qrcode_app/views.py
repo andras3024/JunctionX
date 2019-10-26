@@ -17,10 +17,10 @@ def show_qrcode(request,  **kwargs):
     jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
     payload = jwt_payload_handler(request.user)
     access_token = jwt_encode_handler(payload)
-    qr_text = '{0},{1}'.format(str(request.build_absolute_uri()), access_token)
+    qr_text = '{0},{1}'.format(str(request.build_absolute_uri().replace("/qr", "/tales")), access_token)
     # Create context for html file
     context = {
-        'title': 'QR code',
+        'title': 'QR code for ',
         'qr_text': str(qr_text),
                }
 
