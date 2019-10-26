@@ -19,7 +19,7 @@ def user_logout(request):
     if 'next'in request.GET:
         return HttpResponseRedirect(request.GET.get('next'))
     else:
-        return render(request, 'basic_app/index.html')
+        return render(request, 'children_app/list.html')
 
 
 def user_login(request):
@@ -34,7 +34,7 @@ def user_login(request):
                 if request.POST.get('next') != '':
                     return HttpResponseRedirect(request.POST.get('next'))
                 else:
-                    return render(request, 'basic_app/index.html')
+                    return render(request, 'children_app/list.html')
             else:
                 return HttpResponse("ACCOUNT NOT ACTIVE!")
         else:
