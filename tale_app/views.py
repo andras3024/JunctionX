@@ -25,7 +25,11 @@ class TaleStart(APIView):
     def get(self, request, **kwargs):
         first_content_id = Content.objects.filter().order_by('order')[0].id
         kwargs.update({'content_id': first_content_id})
-        return HttpResponseRedirect(reverse('tale_app:TaleContent', kwargs=kwargs))
+        try:
+            kwargs['child_id']
+            return HttpResponseRedirect(reverse('tale_app:TaleContent', kwargs=kwargs))
+        except KeyError:
+            return HttpResponseRedirect(reverse('tale_app:TaleContentTest', kwargs=kwargs))
 
 
 class TaleContent(APIView):

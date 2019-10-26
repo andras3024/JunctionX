@@ -16,10 +16,10 @@
       <div class="card">
         <div class="card-body bg-light ">
           <h5 class="card-title">{{ item.name}}</h5>
-            <img src="{{ item.image.url }}" alt="img">
+            <img src="{{ item.image.url }}" alt="img" style="max-width:100%;max-height:100%;">
 
           <div class="text-center">
-
+<br>
             <button data-id="{{item.id}}" type="button" class="btn btn-primary select_card_button" >
               Select
             </button>
@@ -33,7 +33,7 @@
     {% endfor %}
   </div>
 {% endif %}
-<a href="{% url 'children_app:add_child' %}" class="btn btn-primary"> Add</a>
+<a href="{% url 'children_app:add_child' %}" class="btn btn-primary"> Add child</a>
 {% csrf_token %}
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>

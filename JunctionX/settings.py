@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'qrcode_app',
     'qr_code',
     'tale_app',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
