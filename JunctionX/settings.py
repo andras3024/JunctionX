@@ -153,7 +153,7 @@ JWT_AUTH = {
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/site/wwwroot/static/static/'
+STATIC_ROOT = '/home/site/wwwroot/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
     PICTURES_DIR,
