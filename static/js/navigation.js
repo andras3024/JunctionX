@@ -5,7 +5,7 @@ $('.select_tale_button').click(select_tale);
 $('.generate_qr_button').click(generate_qr);
 
 function select_card(){
-  window.location.href = window.location.href + '_' +this.getAttribute('data-id')+'/stat'
+  window.location.href = window.location.href + '_' +this.getAttribute('data-id')+'/result'
 }
 
 function select_tale(){

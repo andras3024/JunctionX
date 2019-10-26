@@ -28,6 +28,6 @@ urlpatterns = [
     path('', include('children_app.urls')),
     path('', include('qrcode_app.urls')),
     path('', include('tale_app.urls')),
-    #path('', include('statistics_app.urls')),
+    path('', include('statistics_app.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

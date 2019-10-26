@@ -23,4 +23,4 @@ class Result(models.Model):
         db_table = 'result'
 
     def __str__(self):
-        return 'ID:{} Username:{}'.format(self.id, self.child.name)
+        return 'ID: {} Child name: {}'.format(self.id, self.child.name)
