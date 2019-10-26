@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
 from rest_framework_jwt.settings import api_settings
 from django.urls import reverse
+from children_app.models import Child
 
 
 # ===========================================================
@@ -18,9 +19,10 @@ def show_qrcode(request,  **kwargs):
     payload = jwt_payload_handler(request.user)
     access_token = jwt_encode_handler(payload)
     qr_text = '{0},{1}'.format(str(request.build_absolute_uri().replace("/qr", "/tales")), access_token)
+    child = Child.objects.get(pk=kwargs['child_id'])
     # Create context for html file
     context = {
-        'title': 'QR code for ',
+        'title': 'QR code for ' + str(child.name),
         'qr_text': str(qr_text),
                }
 

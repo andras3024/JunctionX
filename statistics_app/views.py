@@ -101,7 +101,7 @@ def radar_factory(num_vars, frame='circle'):
 
 
 def create_radar(session_id):
-    data = [0, 0, 0, 0, 0, 0, 0, 0]
+    data = [1, 1, 1, 1, 1, 1, 1, 1]
     results = Result.objects.filter(session__id=session_id)
     for emotion in [0, 1, 2, 3, 4, 5, 6, 7]:
         col_name = 'emotion_' + str(emotion)
@@ -144,6 +144,7 @@ class ChildResult(LoginRequiredMixin, TemplateView):
                 tale__id=tale_id,
             ).order_by('date')
             tales.append([Tale.objects.get(pk=tale_id), sessions])
+
         # A result adatokbol kell csinalni egy listat, aztan azt meg  a contenthez hozzá kell fűzni.
         context['items'] = tales
         return context
