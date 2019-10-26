@@ -16,6 +16,7 @@
       <div class="card">
         <div class="card-body bg-light ">
           <h5 class="card-title">{{ item.name}}</h5>
+            <img src="{{ item.image.url }}" alt="img">
 
           <div class="text-center">
 
@@ -30,6 +31,7 @@
   </div>
 {% endif %}
 
+<a href="{% url 'children_app:add_child' %}" class="btn btn-primary"> Add</a>
 
 {% csrf_token %}
 {% endblock %}
