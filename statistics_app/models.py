@@ -29,6 +29,7 @@ class Result(models.Model):
     emotion_6 = models.FloatField()
     emotion_7 = models.FloatField()
     time = models.DateTimeField(db_column='time', auto_now=True)
+    image = models.ImageField(db_column='image', upload_to='azure_app/pictures', blank=True)
 
     class Meta:
         db_table = 'result'

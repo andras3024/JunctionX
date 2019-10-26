@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'tale_app',
     'rest_framework',
     'rest_framework.authtoken',
+    'azure_app',
 ]
 
 MIDDLEWARE = [
