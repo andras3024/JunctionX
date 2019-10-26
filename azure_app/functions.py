@@ -14,10 +14,10 @@ import azure.cognitiveservices.speech as speechsdk
 
 
 def emotion_detction(result_id):
-    KEY = os.environ['FACE_SUBSCRIPTION_KEY']
-    ENDPOINT = os.environ['FACE_ENDPOINT']
+    KEY = "0aa7184d59da46daa3c503a2ca802b4c"
+    ENDPOINT = "https://facetestfirsttry.cognitiveservices.azure.com/face/v1.0/detect"
     result = Result.objects.get(pk=result_id)
-    image_path = BASE_DIR + result.image.url
+    image_path = BASE_DIR + os.path.normpath(str(result.image.url))
     image_data = open(image_path, "rb").read()
     headers = {'Ocp-Apim-Subscription-Key': KEY,
                'Content-Type': 'application/octet-stream'}
@@ -30,6 +30,7 @@ def emotion_detction(result_id):
         ENDPOINT, headers=headers, params=params, data=image_data)
     response.raise_for_status()
     data = response.json()
+    print(response)
     print(data)
     emotion = data[0]['faceAttributes']['emotion']
     result.emotion_0 = emotion['anger']

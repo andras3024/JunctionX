@@ -12,6 +12,9 @@ from children_app.models import Child
 from statistics_app.models import Session
 from django.utils import timezone
 from next_prev import next_in_order, prev_in_order
+from .forms import ReportPicture
+from statistics_app.models import Result
+from azure_app.functions import emotion_detction
 
 
 class TalesList(APIView):
@@ -57,7 +60,10 @@ class TaleEnd(APIView):
         session.completed = True
         session.save()
         tale = Tale.objects.get(id=kwargs['tale_id'])
-        context = {'item': tale}
+        next_content_url = reverse('tale_app:TalesList', kwargs={
+            'child_id':kwargs['child_id'],
+        })
+        context = {'item': tale, 'next_content_url': next_content_url}
         return render(request, 'tale_app/taleend.html', context)
 
 
@@ -66,6 +72,7 @@ class TaleContent(APIView):
 
     def get(self, request, *args, **kwargs):
         session = Session.objects.get(tale=kwargs['tale_id'], child=kwargs['child_id'], completed=False)
+        session.content_id = kwargs['content_id']
         contents = Content.objects.filter(taleid=kwargs['tale_id']).order_by('order')
         curr_content = Content.objects.get(id=kwargs['content_id'])
         next_content = next_in_order(curr_content, qs=contents)
@@ -89,3 +96,38 @@ class TaleContent(APIView):
 
         context = {'item': content, 'next_content_url': next_content_url}
         return render(request, renderhtml, context)
+
+
+class TaleUpload(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request, **kwargs):
+        context ={'form': ReportPicture()}
+        return render(request, 'tale_app/upload.html',context)
+
+    def post(self, request, *args, **kwargs):
+        form = ReportPicture(request.POST, request.FILES)
+        if form.is_valid():
+            print("VALID FORM IN.")
+            session = Session.objects.get(tale=kwargs['tale_id'], child=kwargs['child_id'], completed=False)
+            content = Content.objects.get(id=kwargs['content_id'])
+            try:
+                result = Result.objects.get(session=session, content=content)
+                result.image = form.cleaned_data['image']
+                result.time = str(timezone.now())
+            except Result.DoesNotExist:
+                result = Result(
+                    session=session,
+                    content=content,
+                    time=str(timezone.now()),
+                    image=form.cleaned_data['image'],
+                )
+                result.save()
+            endresult = Result.objects.get(session=session,content=content)
+            emotion_detction(endresult.id)
+            # Redirect response
+            return HttpResponseRedirect(reverse('tale_app:TaleContent', kwargs=kwargs))
+
+        else:
+            print("Problem with FORM IN.")
+            return HttpResponseRedirect(reverse('tale_app:TaleUpload', kwargs=kwargs))
