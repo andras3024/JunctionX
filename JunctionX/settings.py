@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'children_app',
     'qrcode_app',
     'qr_code',
+    'tale_app',
 ]
 
 MIDDLEWARE = [
