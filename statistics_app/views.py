@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Result
+from .models import Result, Session
 from children_app.models import Child
 from django.views.generic.base import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -96,7 +96,7 @@ def radar_factory(num_vars, frame='circle'):
     return theta
 
 
-def create_radar(data):
+def create_radar(session_id, data):
     N = 8
     theta = radar_factory(N, frame='polygon')
     spoke_labels = ['anger', 'contempt', 'disgust', 'fear', 'happiness', 'neutral', 'sadness', 'surprise']
@@ -120,9 +120,14 @@ class ChildResult(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        all_result = Result.objects.filter(
-            child=Child.objects.get(pk=kwargs['child_id'])
-        ).order_by('time')
+        tale_ids = Session.objects.all().values_list('tale', flat=True).distinct()
+        for tale_id in tale_ids:
+            sessions = Session.objects.filter(
+                child=Child.objects.get(pk=kwargs['child_id']),
+                tale__id=tale_id,
+            ).order_by('date')
+            for session in sessions:
+                pass
         # A result adatokbol kell csinalni egy listat, aztan azt meg  a contenthez hozzá kell fűzni.
-        context['items'] = all_result
+        context['items'] = 'valami'
         return context
