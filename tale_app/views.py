@@ -15,6 +15,7 @@ from next_prev import next_in_order, prev_in_order
 from .forms import ReportPicture
 from statistics_app.models import Result
 from azure_app.functions import emotion_detction
+from statistics_app.views import create_radar
 
 
 class TalesList(APIView):
@@ -56,9 +57,14 @@ class TaleEnd(APIView):
     permission_classes = [permissions.AllowAny]
 
     def get(self, request, **kwargs):
-        session = Session.objects.get(tale=kwargs['tale_id'], child=kwargs['child_id'], completed=False)
-        session.completed = True
-        session.save()
+        try:
+            session = Session.objects.get(tale=kwargs['tale_id'], child=kwargs['child_id'], completed=False)
+            session.completed = True
+            session.save()
+            create_radar(session.id)
+        except Session.DoesNotExist:
+            pass
+
         tale = Tale.objects.get(id=kwargs['tale_id'])
         next_content_url = reverse('tale_app:TalesList', kwargs={
             'child_id':kwargs['child_id'],
@@ -77,7 +83,7 @@ class TaleContent(APIView):
         curr_content = Content.objects.get(id=kwargs['content_id'])
         next_content = next_in_order(curr_content, qs=contents)
         if next_content is None:
-            next_content_url =  reverse('tale_app:TaleEnd', kwargs={
+            next_content_url = reverse('tale_app:TaleEnd', kwargs={
                 'child_id': kwargs['child_id'],
                 'tale_id': kwargs['tale_id'],
             })
@@ -97,6 +103,39 @@ class TaleContent(APIView):
         context = {'item': content, 'next_content_url': next_content_url}
         return render(request, renderhtml, context)
 
+    def post(self, request, *args, **kwargs):
+        print("POST IN.")
+        session = Session.objects.get(tale=kwargs['tale_id'], child=kwargs['child_id'], completed=False)
+        content = Content.objects.get(id=kwargs['content_id'])
+        try:
+            result = Result.objects.get(session=session, content=content)
+            result.time = str(timezone.now())
+        except Result.DoesNotExist:
+            result = Result(
+                session=session,
+                content=content,
+                time=str(timezone.now()),
+            )
+            result.save()
+        endresult = Result.objects.get(session=session,content=content)
+        emotion_detction(endresult.id)
+        # Redirect response
+        session = Session.objects.get(tale=kwargs['tale_id'], child=kwargs['child_id'], completed=False)
+        session.content_id = kwargs['content_id']
+        contents = Content.objects.filter(taleid=kwargs['tale_id']).order_by('order')
+        curr_content = Content.objects.get(id=kwargs['content_id'])
+        next_content = next_in_order(curr_content, qs=contents)
+        if next_content is None:
+            next_content_url = reverse('tale_app:TaleEnd', kwargs={
+                'child_id': kwargs['child_id'],
+                'tale_id': kwargs['tale_id'],
+            })
+            return HttpResponseRedirect(next_content_url)
+        else:
+            kwargs['content_id'] = next_content.id
+            return HttpResponseRedirect(reverse('tale_app:TaleContent', kwargs=kwargs))
+
+
 
 class TaleUpload(APIView):
     permission_classes = [permissions.AllowAny]
@@ -115,6 +154,7 @@ class TaleUpload(APIView):
                 result = Result.objects.get(session=session, content=content)
                 result.image = form.cleaned_data['image']
                 result.time = str(timezone.now())
+                result.save()
             except Result.DoesNotExist:
                 result = Result(
                     session=session,
@@ -126,7 +166,20 @@ class TaleUpload(APIView):
             endresult = Result.objects.get(session=session,content=content)
             emotion_detction(endresult.id)
             # Redirect response
-            return HttpResponseRedirect(reverse('tale_app:TaleContent', kwargs=kwargs))
+            session = Session.objects.get(tale=kwargs['tale_id'], child=kwargs['child_id'], completed=False)
+            session.content_id = kwargs['content_id']
+            contents = Content.objects.filter(taleid=kwargs['tale_id']).order_by('order')
+            curr_content = Content.objects.get(id=kwargs['content_id'])
+            next_content = next_in_order(curr_content, qs=contents)
+            if next_content is None:
+                next_content_url = reverse('tale_app:TaleEnd', kwargs={
+                    'child_id': kwargs['child_id'],
+                    'tale_id': kwargs['tale_id'],
+                })
+                return HttpResponseRedirect(next_content_url)
+            else:
+                kwargs['content_id'] = next_content.id
+                return HttpResponseRedirect(reverse('tale_app:TaleContent', kwargs=kwargs))
 
         else:
             print("Problem with FORM IN.")

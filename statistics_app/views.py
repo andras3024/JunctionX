@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import os
 from .models import Result, Session
 from tale_app.models import Tale
 from children_app.models import Child
@@ -100,7 +101,7 @@ def radar_factory(num_vars, frame='circle'):
 
 
 def create_radar(session_id):
-    data = [1, 1, 1, 1, 1, 1, 1, 1]
+    data = [0, 0, 0, 0, 0, 0, 0, 0]
     results = Result.objects.filter(session__id=session_id)
     for emotion in [0, 1, 2, 3, 4, 5, 6, 7]:
         col_name = 'emotion_' + str(emotion)
@@ -121,11 +122,11 @@ def create_radar(session_id):
     axes.set_varlabels(spoke_labels)
 
     # add legend relative to top-left plot
-    img_path = STATIC_DIR + '/statistics_app/pictures/radar_test_' + str(session_id) + '.png'
+    img_path = STATIC_DIR + os.path.normpath('/statistics_app/pictures/radar_test_' + str(session_id) + '.png')
     print(img_path)
     plt.savefig(img_path, dpi=300)
     session = Session.objects.get(pk=session_id)
-    session.image_url = img_path
+    session.image_path = '/static/statistics_app/pictures/radar_test_' + str(session_id) + '.png'
     session.save()
     return img_path
 

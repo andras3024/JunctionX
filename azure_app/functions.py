@@ -32,16 +32,17 @@ def emotion_detction(result_id):
     data = response.json()
     print(response)
     print(data)
-    emotion = data[0]['faceAttributes']['emotion']
-    result.emotion_0 = emotion['anger']
-    result.emotion_1 = emotion['contempt']
-    result.emotion_2 = emotion['disgust']
-    result.emotion_3 = emotion['fear']
-    result.emotion_4 = emotion['happiness']
-    result.emotion_5 = emotion['neutral']
-    result.emotion_6 = emotion['sadness']
-    result.emotion_7 = emotion['surprise']
-    result.save()
+    if data != []:
+        emotion = data[0]['faceAttributes']['emotion']
+        result.emotion_0 = emotion['anger']
+        result.emotion_1 = emotion['contempt']
+        result.emotion_2 = emotion['disgust']
+        result.emotion_3 = emotion['fear']
+        result.emotion_4 = emotion['happiness']
+        result.emotion_5 = emotion['neutral']
+        result.emotion_6 = emotion['sadness']
+        result.emotion_7 = emotion['surprise']
+        result.save()
 
 
 class TextToSpeech(object):
