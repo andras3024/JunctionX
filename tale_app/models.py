@@ -16,7 +16,7 @@ class Tale(models.Model):
 class Content(models.Model):
     id = models.AutoField(db_column='id', primary_key=True)
     taleid = models.ForeignKey(Tale, models.CASCADE, db_column='taleid')
-    mp4 = models.CharField(db_column='mp4', max_length=256, blank=True, null=True)
+    mp4 = models.FileField(db_column='mp4', upload_to='tale_app/videos', null=True)
     taskid = models.IntegerField(db_column='taskid', null=True, blank=True)
     targetemotion = models.IntegerField(db_column='targetemotion')
     order = models.IntegerField(db_column='order', null=False)
@@ -25,4 +25,4 @@ class Content(models.Model):
         db_table = 'content'
 
     def __str__(self):
-        return 'ID:{} Name:{}'.format(self.id, self.name)
+        return 'ID:{} ORDER:{}'.format(self.id,self.order)
