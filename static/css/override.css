@@ -177,6 +177,78 @@ progress::-webkit-progress-value {
 	background: -webkit-linear-gradient(left, #A9BCF5 0%,#013ADF 100%);
 }
 
+.myText{
+    color:#000000;
+    font-family:"Segoe Script";
+    font-size:300%;
+    margin-top: 10px;
+}
+
+.myButton {
+	background-color:#e4685d;
+	border-radius:6px;
+	border:1px solid #d83526;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:"Segoe Script";
+	font-size:50px;
+	font-weight:bold;
+	padding:6px 24px;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #e4685d 5%, #fc8d83 100%);
+	background-color:#e4685d;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+.myEmotionButton {
+	background-color:wheat;
+	border-radius: 50%;
+	color:#ffffff;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 4%;
+}
+.myEmotionButton:hover {
+	background-color:green;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.horizontalcenter {
+    text-align: center;
+    margin-top: 50px;
+    top: 50%;
+}
+
+.customList_1{
+    background-color: #8fd19e;
+}
+
+.customList_2{
+    background-color: #7abaff;
+}
+
+.customList_3{
+    background-color: #ff253a;
+}
+
+.customList_4{
+    background-color: saddlebrown;
+}
+
 /*
 =============================
 MODAL

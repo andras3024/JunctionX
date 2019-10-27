@@ -33,6 +33,7 @@ class Result(models.Model):
 
     class Meta:
         db_table = 'result'
+        unique_together = ('session', 'content')
 
     def __str__(self):
         return 'ID: {} Child name: {}'.format(self.id, self.session.child.name)

@@ -21,3 +21,5 @@ function generate_qr(){
   console.log(window.location.href + 'child_' +this.getAttribute('data-id')+'/qr');
   window.location.href = window.location.href + 'child_' +this.getAttribute('data-id')+'/qr'
 }
+
+

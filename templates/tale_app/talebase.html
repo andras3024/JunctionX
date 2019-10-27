@@ -21,7 +21,7 @@
 </body>
 </html>
 
-<div class="container">
+<div>
 {% block body_block %}
 {# Anything outside of this will be inherited if you use extend.#}
 {% endblock %}
@@ -48,16 +48,9 @@ body {
   z-index: -1000;
   overflow: hidden;
 }
-.center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-</style>
 
+</style>
+{% csrf_token %}
 {{ next_content_url|json_script:"next_content_url" }}
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>

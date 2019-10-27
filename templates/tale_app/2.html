@@ -4,10 +4,28 @@
 {% block body_block%}
 {%load static%}
 <body>
-    <div class="center">
-         <h1> {{ item.tasktext }}</h1>
-        <img src="{{ item.taskimage.url }}"  style="width: 300px; height: 300px;" alt="img" style="max-width:100%;max-height:100%;">
+    <div class="horizontalcenter">
+         <h1 class="myText"> {{ item.tasktext }}</h1>
+        <div id="wrap" >
+            <div id="over" >
+
+            </div>
+            <div id="under">
+                <div>
+                    <input type="image" src="/media/emotions/1/0.png" alt="Submit" width="95" height="95" id="0" class="myEmotionButton post_emotion">
+                    <input type="image" src="/media/emotions/1/1.png" alt="Submit" width="95" height="95" id="1" class="myEmotionButton post_emotion">
+                    <input type="image" src="/media/emotions/1/2.png" alt="Submit" width="95" height="95" id="2" class="myEmotionButton post_emotion">
+                    <input type="image" src="/media/emotions/1/3.png" alt="Submit" width="95" height="95" id="3" class="myEmotionButton post_emotion">
+                    <input type="image" src="/media/emotions/1/4.png" alt="Submit" width="95" height="95" id="4" class="myEmotionButton post_emotion">
+                    <input type="image" src="/media/emotions/1/5.png" alt="Submit" width="95" height="95" id="5" class="myEmotionButton post_emotion">
+                    <input type="image" src="/media/emotions/1/6.png" alt="Submit" width="95" height="95" id="6" class="myEmotionButton post_emotion">
+                    <input type="image" src="/media/emotions/1/7.png" alt="Submit" width="95" height="95" id="7" class="myEmotionButton post_emotion">
+                </div>
+            </div>
+        </div>
     </div>
+
+
 
 
 </body>

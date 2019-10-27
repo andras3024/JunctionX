@@ -7,6 +7,8 @@ class Child(models.Model):
     name = models.CharField(db_column='Name', max_length=128, blank=True, null=True)
     image = models.ImageField(db_column='image', upload_to='children_app/pictures', blank=True)
     user = models.ForeignKey(User, models.CASCADE, db_column='userID')
+    wholescore = models.IntegerField(blank=True, default=0)
+    sessionscore = models.IntegerField(blank=True, default=0)
 
     class Meta:
         db_table = 'child'

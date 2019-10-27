@@ -5,8 +5,9 @@
 {%load static%}
 <body>
     <div class="center">
-         <h1> {{ item.tasktext }}</h1>
-        <button data-id="{{item.id}}" type="button" class="btn btn-primary take_picture" >
+         <h1 class="myText"> {{ item.tasktext }}</h1>
+
+        <button data-id="{{item.id}}" type="button" class="myButton take_picture" >
             Take a selfie!
         </button>
     </div>
