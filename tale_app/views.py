@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from rest_framework.views import APIView
-from .models import Tale
+from .models import Tale, EmojiIcon
 from .models import Content
 from children_app.models import Child
 from statistics_app.models import Session
@@ -122,7 +122,9 @@ class TaleContent(APIView):
         child.sessionscore = child.sessionscore + 10
         child.save()
 
-        context = {'item': content, 'next_content_url': next_content_url, 'emojiset': emojiset}
+        emojis = EmojiIcon.objects.filter(primaryid=emojiset).order_by('emotionid')
+
+        context = {'item': content, 'next_content_url': next_content_url, 'emojis': emojis}
         return render(request, renderhtml, context)
 
     def post(self, request, *args, **kwargs):

@@ -30,3 +30,16 @@ class Content(models.Model):
     def __str__(self):
         return 'NAME: {} ID:{} ORDER:{}'.format(self.taleid.name, self.id,  self.order)
 
+
+class EmojiIcon(models.Model):
+    id = models.AutoField(db_column='id', primary_key=True)
+    primaryid = models.IntegerField(db_column='primaryid', null=False)
+    emotionid = models.IntegerField(db_column='emotionid', null=False)
+    image = models.ImageField(db_column='image', upload_to='tale_app/pictures', blank=False)
+
+    class Meta:
+        db_table = 'emojiicons'
+
+    def __str__(self):
+        return 'PID: {} EID:{}'.format(self.primaryid, self.emotionid)
+
