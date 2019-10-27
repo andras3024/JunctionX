@@ -100,6 +100,8 @@ kiwisolver==1.1.0
 matplotlib==3.1.1
 msrest==0.6.10
 msrestazure==0.6.2
+mysql-client==0.0.1
+mysqlclient==1.4.4
 numpy==1.17.3
 oauthlib==3.1.0
 Pillow==6.2.1
