@@ -45,3 +45,26 @@ class AddChild(LoginRequiredMixin, TemplateView):
             return render(request, 'children_app/add.html', {'form': form})
 
 
+class SettingChild(LoginRequiredMixin, TemplateView):
+    template_name = "children_app/setting.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        child = Child.objects.get(pk=kwargs['child_id'])
+        settingform = forms.SettingsEmoji(instance=child)
+        context['form'] = settingform
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = forms.SettingsEmoji(request.POST, request.FILES)
+        if form.is_valid():
+            print("VALID FORM IN.")
+            child = Child.objects.get(pk=kwargs['child_id'])
+            child.emojitype = form.cleaned_data['emojitype']
+            child.save()
+
+            return HttpResponseRedirect(reverse('children_app:child'))
+
+
+
+

@@ -23,7 +23,8 @@ class TalesList(APIView):
 
     def get(self, request, *args, **kwargs):
         tales = Tale.objects.all()
-        context = {'items': tales}
+        child = Child.objects.get(pk=kwargs['child_id'])
+        context = {'items': tales, 'stars': child.wholescore}
         return render(request, 'tale_app/list.html', context)
 
 
@@ -117,10 +118,11 @@ class TaleContent(APIView):
             renderhtml = "tale_app/" + str(content.type) + ".html"
 
         child = Child.objects.get(pk=kwargs['child_id'])
+        emojiset = child.emojitype
         child.sessionscore = child.sessionscore + 10
         child.save()
 
-        context = {'item': content, 'next_content_url': next_content_url}
+        context = {'item': content, 'next_content_url': next_content_url, 'emojiset': emojiset}
         return render(request, renderhtml, context)
 
     def post(self, request, *args, **kwargs):

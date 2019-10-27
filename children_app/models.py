@@ -9,6 +9,8 @@ class Child(models.Model):
     user = models.ForeignKey(User, models.CASCADE, db_column='userID')
     wholescore = models.IntegerField(blank=True, default=0)
     sessionscore = models.IntegerField(blank=True, default=0)
+    emojitype = models.IntegerField(blank=True, default=1)
+
 
     class Meta:
         db_table = 'child'
