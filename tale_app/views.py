@@ -84,7 +84,7 @@ class TaleEnd(APIView):
 
         tale = Tale.objects.get(id=kwargs['tale_id'])
         next_content_url = reverse('tale_app:TalesList', kwargs={
-            'child_id':kwargs['child_id'],
+            'child_id': kwargs['child_id'],
         })
         context = {'item': tale, 'next_content_url': next_content_url, 'child_sessionscore': sessionscore}
         return render(request, 'tale_app/taleend.html', context)
