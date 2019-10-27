@@ -19,6 +19,16 @@ from matplotlib.projections import register_projection
 from matplotlib.spines import Spine
 from matplotlib.transforms import Affine2D
 
+## AADTokenCredentials for multi-factor authentication
+from msrestazure.azure_active_directory import AADTokenCredentials
+
+## Required for Azure Data Lake Analytics job management
+from azure.mgmt.datalake.analytics.job import DataLakeAnalyticsJobManagementClient
+from azure.mgmt.datalake.analytics.job.models import JobInformation, JobState, USqlJobProperties
+
+## Other required imports
+import adal, uuid, time
+
 
 def radar_factory(num_vars, frame='circle'):
     """Create a radar chart with `num_vars` axes.

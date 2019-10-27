@@ -153,11 +153,10 @@ JWT_AUTH = {
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = '/home/site/wwwroot/static2/'
 STATICFILES_DIRS = [
     STATIC_DIR,
     PICTURES_DIR,
-    os.path.join(STATIC_DIR, 'tale_app', 'pictures'),
-    os.path.join(STATIC_DIR, 'statistics_app', 'pictures'),
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = MEDIA_DIR
