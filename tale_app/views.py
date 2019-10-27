@@ -40,7 +40,7 @@ class TaleStart(APIView):
             })
             return HttpResponseRedirect(next_content_url)
         try:
-            old_session = Session.objects.get(tale=kwargs['tale_id'], child=kwargs['child_id'], completed=False)
+            old_session = Session.objects.get(tale=Tale.objects.get(pk=kwargs['tale_id']), child=Child.objects.get(pk=kwargs['child_id']), completed=False)
             first_content_id = old_session.content_id
         except Session.DoesNotExist:
             first_content_id = Content.objects.filter(taleid=Tale.objects.get(pk=kwargs['tale_id'])).order_by('order')[0].id
@@ -166,7 +166,6 @@ class TaleContent(APIView):
         curr_content = Content.objects.get(id=kwargs['content_id'])
         next_content = next_in_order(curr_content, qs=contents)
         return JsonResponse({'status': True})
-
 
 
 class TaleUpload(APIView):

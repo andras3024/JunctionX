@@ -38,3 +38,10 @@ function post_emotion_ajax(url_, id){
         })
 
 }
+
+
+console.log(window.location.href);
+if(window.location.href.indexOf("end") > -1){
+    console.log("timer active");
+    setTimeout(function(){ window.location.href= next_content_url; }, 3000);
+}
