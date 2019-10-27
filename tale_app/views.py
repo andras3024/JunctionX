@@ -173,7 +173,23 @@ class TaleUpload(APIView):
     permission_classes = [permissions.AllowAny]
 
     def get(self, request, **kwargs):
-        context ={'form': ReportPicture()}
+        session = Session.objects.get(tale=kwargs['tale_id'], child=kwargs['child_id'], completed=False)
+        session.content_id = kwargs['content_id']
+        contents = Content.objects.filter(taleid=kwargs['tale_id']).order_by('order')
+        curr_content = Content.objects.get(id=kwargs['content_id'])
+        next_content = next_in_order(curr_content, qs=contents)
+        if next_content is None:
+            next_content_url = reverse('tale_app:TaleEnd', kwargs={
+                'child_id': kwargs['child_id'],
+                'tale_id': kwargs['tale_id'],
+            })
+        else:
+            next_content_url = reverse('tale_app:TaleContent', kwargs={
+                'child_id': kwargs['child_id'],
+                'tale_id': kwargs['tale_id'],
+                'content_id': next_content.id
+            })
+        context ={'form': ReportPicture(), 'next_content_url': next_content_url,}
         return render(request, 'tale_app/upload.html',context)
 
     def post(self, request, *args, **kwargs):

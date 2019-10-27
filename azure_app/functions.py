@@ -17,17 +17,17 @@ def emotion_detction(result_id):
     KEY = "0aa7184d59da46daa3c503a2ca802b4c"
     ENDPOINT = "https://facetestfirsttry.cognitiveservices.azure.com/face/v1.0/detect"
     result = Result.objects.get(pk=result_id)
-    image_path = BASE_DIR + os.path.normpath(str(result.image.url))
-    image_data = open(image_path, "rb").read()
-    headers = {'Ocp-Apim-Subscription-Key': KEY,
-               'Content-Type': 'application/octet-stream'}
+    image_path = str(result.image.url)
+
+    #image_data = open(image_path, "rb").read()
+    headers = {'Ocp-Apim-Subscription-Key': KEY}
     params = {
         'returnFaceId': 'false',
         'returnFaceLandmarks': 'false',
         'returnFaceAttributes': 'emotion',
     }
     response = requests.post(
-        ENDPOINT, headers=headers, params=params, data=image_data)
+        ENDPOINT, headers=headers, params=params, json={"url": image_path})
     response.raise_for_status()
     data = response.json()
     print(response)
