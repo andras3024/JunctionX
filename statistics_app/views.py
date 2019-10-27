@@ -18,6 +18,8 @@ from matplotlib.projections.polar import PolarAxes
 from matplotlib.projections import register_projection
 from matplotlib.spines import Spine
 from matplotlib.transforms import Affine2D
+from azure.storage.blob import BlockBlobService
+from azure.storage.blob import ContentSettings
 
 ## AADTokenCredentials for multi-factor authentication
 from msrestazure.azure_active_directory import AADTokenCredentials
@@ -135,10 +137,24 @@ def create_radar(session_id):
     img_path = STATIC_DIR + os.path.normpath('/statistics_app/pictures/radar_test_' + str(session_id) + '.png')
     print(img_path)
     plt.savefig(img_path, dpi=300)
+    upload_blob(os.path.normpath('statistics_app/pictures/radar_test_' + str(session_id) + '.png'), img_path)
     session = Session.objects.get(pk=session_id)
-    session.image_path = '/static/statistics_app/pictures/radar_test_' + str(session_id) + '.png'
+    session.image_path = 'https://hackathoninnoai.blob.core.windows.net/static/statistics_app/pictures/radar_test_' + str(session_id) + '.png'
     session.save()
     return img_path
+
+
+def upload_blob(path, name):
+    block_blob_service = BlockBlobService(account_name='hackathoninnoai', account_key='IrZ5NR+e/OX4FcHLet9bUdurOX6O6lmRHJRfLn3x4e+hbKQ0tjoCMVi0OxiwHnnzY092cqofXfx4A48AeKfWLw==')
+    block_blob_service.create_container('static')
+
+    #Upload the CSV file to Azure cloud
+    block_blob_service.create_blob_from_path(
+        'static',
+        path,
+        name,
+        content_settings=ContentSettings(content_type='application/octetstream')
+                )
 
 
 class ChildResult(LoginRequiredMixin, TemplateView):
