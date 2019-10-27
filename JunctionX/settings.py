@@ -165,8 +165,6 @@ MEDIA_ROOT = MEDIA_DIR
 #LOGIN
 LOGIN_URL = '/accounts/login/'
 
-
-
 DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
 STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'
 
