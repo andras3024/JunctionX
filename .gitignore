@@ -17,3 +17,5 @@ tale_app/migrations/__pycache__
 tale_app/__pycache__
 
 azure_app/__pycache__/
+
+__pycache__/
