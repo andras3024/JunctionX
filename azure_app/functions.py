@@ -44,7 +44,7 @@ def emotion_detction(result_id):
         result.emotion_7 = emotion['surprise']
         result.save()
 
-
+'''
 class TextToSpeech(object):
     def __init__(self, subscription_key, text):
         self.subscription_key = subscription_key
@@ -96,5 +96,5 @@ def text_to_speech(text):
     subscription_key = "8c908ab70ab54a8f8d11657875e5a1be"
     app = TextToSpeech(subscription_key, text)
     app.get_token()
-    app.save_audio()
+    app.save_audio()'''
 
