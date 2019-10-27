@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person, SnapshotObjectType, OperationStatusType
-import azure.cognitiveservices.speech as speechsdk
+# import azure.cognitiveservices.speech as speechsdk
 
 
 def emotion_detction(result_id):
@@ -45,8 +45,7 @@ def emotion_detction(result_id):
         result.save()
 
 
-
-class TextToSpeech(object):
+'''class TextToSpeech(object):
     def __init__(self, subscription_key, text):
         self.subscription_key = subscription_key
         self.tts = text
@@ -97,5 +96,5 @@ def text_to_speech(text):
     subscription_key = "8c908ab70ab54a8f8d11657875e5a1be"
     app = TextToSpeech(subscription_key, text)
     app.get_token()
-    app.save_audio()
+    app.save_audio()'''
 
