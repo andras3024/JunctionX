@@ -174,3 +174,24 @@ class ChildResult(LoginRequiredMixin, TemplateView):
         # A result adatokbol kell csinalni egy listat, aztan azt meg  a contenthez hozzá kell fűzni.
         context['items'] = tales
         return context
+
+
+class ChildEmotionList(LoginRequiredMixin, TemplateView):
+    template_name = "statistics_app/emotion_list.html"
+    emotion_enum = {0: 'anger', 1: 'contempt', 2: 'disgust', 3: 'fear', 4: 'happiness',
+                    5: 'neutral', 6: 'sadness', 7: 'surprise'}
+
+    def get_context_data(self, **kwargs):  # Ez a két sor itt ahhoz kell, hogy hozzáférjük a context-hez
+        # amit belerakunka template-be
+        context = super().get_context_data(**kwargs)
+        all_result = Result.objects.filter(
+            session__child=Child.objects.get(pk=kwargs['child_id']),
+        ).order_by('-id')
+        child_emotion = []
+        for emotion in range(0, 8):
+            emo = all_result.filter(content__targetemotion=emotion)
+            if emo:
+                child_emotion.append([self.emotion_enum[emotion], emo[0].image.url])
+        context['items'] = child_emotion
+        return context
+

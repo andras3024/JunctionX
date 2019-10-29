@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
+
 class ChildList(LoginRequiredMixin, TemplateView):
     template_name = "children_app/list.html"
 
